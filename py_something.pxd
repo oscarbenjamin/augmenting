@@ -1,3 +1,4 @@
+import cython
 
-cpdef identity(int N):
-    cdef int n
+@cython.locals(n = cython.int, total = cython.int)
+cpdef int identity(int N)
