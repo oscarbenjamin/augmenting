@@ -1,5 +1,6 @@
 
-try:
-    from cy_something import *
-except ImportError:
-    from py_something import *
+def identity(N):
+    total = 0
+    for n in range(N):
+        total += 1
+    return total

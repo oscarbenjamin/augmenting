@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 
+import sys
 import timeit
 
-import py_something, cy_something, cy_augmenting
+# Module to use and description to output
+descr, modname = sys.argv[1:3]
 
-stmts = [
-    ('Pure python :', 'import py_something; py_something.identity({0})'),
-    ('Pure cython :', 'import cy_something; cy_something.identity({0})'),
-    ('Augmenting  :', 'import cy_augmenting; cy_augmenting.identity({0})'),
-]
-
+# Timing parameters
 N = 10000000
+repeats = 3
 
-print 'Timings for the different implementations:'
+# test value of output
+result = __import__(modname).identity(N)
 
-for descr, stmt in stmts:
-    t = timeit.timeit(stmt.format(N), number=3)
-    print descr, t * (1e9 / N), 'ns per loop iteration'
+# Run timing tests and print output
+stmt = 'import {0}; {0}.identity({1})'.format(modname, N)
+t = timeit.timeit(stmt, number=repeats) * (1e9 / (repeats * N))
+print descr, result, t, 'ns per loop iteration'
